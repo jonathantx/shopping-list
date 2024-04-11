@@ -27,7 +27,7 @@ export default function App() {
             const newItem = {
                 id: itens.length + 1,
                 content: (event.target as HTMLInputElement).value,
-                checked: true
+                checked: false
             }
 
             const itemsArray = [newItem, ...itens]
@@ -38,6 +38,30 @@ export default function App() {
 
             localStorage.setItem('itens', JSON.stringify(itemsArray));
         }
+    }
+
+    const handleItemCheck = (id: number, checked: boolean) => {
+
+        const updateItens = itens.map(item => {
+
+            if(item.id === id)
+                return {...item, checked: checked}
+
+            return item;
+        })
+
+        setItem(updateItens)
+
+        localStorage.setItem('itens', JSON.stringify(updateItens));
+    }
+
+    const onItemDeleted = (id: number) => {
+
+        const updateItens = itens.filter(item => item.id !== id)
+
+        setItem(updateItens);
+
+        localStorage.setItem('itens', JSON.stringify(updateItens));
     }
 
     return (
@@ -56,7 +80,7 @@ export default function App() {
             <div className="flex flex-col gap-2.5 items-center w-96 px-3 ">
                 {itens.map(item => {
                     return (
-                        <Item key={item.id} item={item} />
+                        <Item key={item.id} item={item} onItemCheck={(id, isChecked) => handleItemCheck(id, isChecked)} onDeletedItem={onItemDeleted} />
                     )
                 })}
             </div>
