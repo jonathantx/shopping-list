@@ -2,6 +2,7 @@ import { KeyboardEvent, useState } from "react";
 import { Item } from "./components/item";
 import { Pencil } from 'lucide-react';
 import carShopping from './assets/shopping.png'
+import { toast } from "sonner";
 
 interface Itens {
     id: number
@@ -22,11 +23,16 @@ export default function App() {
 
     const handleSetItem = (event: KeyboardEvent<HTMLInputElement>) => {
 
+        let target = (event.target as HTMLInputElement)
+
+        if(target.value === '')
+            return toast.warning('Preencha o campo')
+
         if(event.key === 'Enter'){
 
             const newItem = {
                 id: itens.length + 1,
-                content: (event.target as HTMLInputElement).value,
+                content: target.value,
                 checked: false
             }
 
@@ -34,7 +40,7 @@ export default function App() {
 
             setItem(itemsArray);
 
-            (event.target as HTMLInputElement).value = '';
+            target.value = '';
 
             localStorage.setItem('itens', JSON.stringify(itemsArray));
         }
