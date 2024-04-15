@@ -25,10 +25,10 @@ export default function App() {
 
         let target = (event.target as HTMLInputElement)
 
-        if(target.value === '')
-            return toast.warning('Preencha o campo')
-
         if(event.key === 'Enter'){
+
+            if(target.value === '')
+                return toast.warning('Preencha o campo')
 
             const newItem = {
                 id: itens.length + 1,
