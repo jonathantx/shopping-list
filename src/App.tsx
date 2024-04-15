@@ -5,7 +5,7 @@ import carShopping from './assets/shopping.png'
 import { toast } from "sonner";
 
 interface Itens {
-    id: number
+    id: string
     content: string
     checked: boolean
 }
@@ -31,7 +31,7 @@ export default function App() {
                 return toast.warning('Preencha o campo')
 
             const newItem = {
-                id: itens.length + 1,
+                id: crypto.randomUUID(),
                 content: target.value,
                 checked: false
             }
@@ -46,7 +46,7 @@ export default function App() {
         }
     }
 
-    const handleItemCheck = (id: number, checked: boolean) => {
+    const handleItemCheck = (id: string, checked: boolean) => {
 
         const updateItens = itens.map(item => {
 
@@ -61,7 +61,7 @@ export default function App() {
         localStorage.setItem('itens', JSON.stringify(updateItens));
     }
 
-    const onItemDeleted = (id: number) => {
+    const onItemDeleted = (id: string) => {
 
         const updateItens = itens.filter(item => item.id !== id)
 

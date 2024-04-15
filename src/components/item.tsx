@@ -3,12 +3,12 @@ import ButtonDeleted from "./buttonDeleted"
 
 interface ItensProps {
     item: {
-        id: number
+        id: string
         content: string
         checked: boolean
     }
-    onItemCheck: (id: number, checked: boolean) => void;
-    onDeletedItem: (id: number) => void;
+    onItemCheck: (id: string, checked: boolean) => void;
+    onDeletedItem: (id: string) => void;
 }
 
 export function Item({item, onItemCheck, onDeletedItem}: ItensProps) { 
